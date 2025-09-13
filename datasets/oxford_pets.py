@@ -50,15 +50,11 @@ class OxfordPets(DatasetBase):
 
         subsample = cfg.DATASET.SUBSAMPLE_CLASSES
         
-        if cfg.TRAINER.NAME == "PromptKD":
-            if cfg.TRAINER.MODAL == "base2novel":
-                train_x, _, _ = OxfordPets.subsample_classes(train, val, test, subsample='all')
-                _, _, test_base = OxfordPets.subsample_classes(train, val, test, subsample='base')
-                _, _, test_novel = OxfordPets.subsample_classes(train, val, test, subsample='new')
-                super().__init__(train_x=train_x, val=test_base, test=test_novel)
-            elif cfg.TRAINER.MODAL == "cross":
-                train, _, test = OxfordPets.subsample_classes(train, val, test, subsample=subsample)
-                super().__init__(train_x=train, val=test, test=test)
+        if cfg.TRAINER.NAME == "MTKD":
+            train_x, _, _ = OxfordPets.subsample_classes(train, val, test, subsample='all')
+            _, _, test_base = OxfordPets.subsample_classes(train, val, test, subsample='base')
+            _, _, test_novel = OxfordPets.subsample_classes(train, val, test, subsample='new')
+            super().__init__(train_x=train_x, val=test_base, test=test_novel)
         else:
             train, _, test = OxfordPets.subsample_classes(train, val, test, subsample=subsample)
             super().__init__(train_x=train, val=test, test=test)
