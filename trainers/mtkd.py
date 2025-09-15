@@ -114,10 +114,6 @@ class TextEncoder(nn.Module):
         return x
 
 
-# 新封装的教师模型CustomCLIP_teacher相比原模型，存储了所有文本，这样就不需要在forward中传入文本；并且相比原模型增加了可学习的文本提示
-# 新封装的学生模型CustomCLIP相比原模型，只使用图像编码器，并增加了投影层
-
-
 class VLPromptLearner(nn.Module):
     def __init__(self, cfg, class_names, clip_model : CLIP):
         super().__init__()
